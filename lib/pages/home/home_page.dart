@@ -49,7 +49,10 @@ class _HomePageState extends State<HomePage> {
                         ? () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => SeatPage()),
+                              MaterialPageRoute(builder: (context) => 
+                              SeatPage(
+                              Departure: selectedDeparture!, // ! null아님 강제 선언
+                              Arrival: selectedArrival!,)),
                             );
                           }//삼항연산자를 사용하여 true면 페이지 이동 아니면 null 버튼 비활성화
                         : null, //ElevatedButton의 onPressed를 null로 주면 버튼이 비활성화 상태로 바뀜 (회색 처리 + 클릭 불가능)
