@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_train_app/pages/station/station_list_page.dart';
 
 class SelectBox extends StatelessWidget {
   @override
@@ -10,15 +11,19 @@ class SelectBox extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
-     child:  stationSelect(),
+     child:  stationSelect(context),
     );
   }
 
-  Widget stationSelect() {
+  Widget stationSelect(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         GestureDetector(
+          onTap: (){
+            Navigator.push(context, 
+                        MaterialPageRoute(builder: (context) =>StationListPage(title : '출발역')));
+          },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -36,11 +41,15 @@ class SelectBox extends StatelessWidget {
         ),
         Container(color: Colors.grey[400], width: 2, height: 50),
         GestureDetector(
+           onTap: (){
+            Navigator.push(context, 
+                        MaterialPageRoute(builder: (context) =>StationListPage(title: '도착역',)));
+          },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '출발역',
+                '도착역',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey,
