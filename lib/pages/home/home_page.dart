@@ -13,7 +13,7 @@ class _HomePageState extends State<HomePage> {
   String? selectedDeparture;
   String? selectedArrival;
 
-  bool get isButtonEnabled =>
+  bool get isButtonEnabled => //get 계산된값을 변수처럼 쓸 수 있게해주는 함수
       selectedDeparture != null && selectedArrival != null;
   @override
   Widget build(BuildContext context) {
