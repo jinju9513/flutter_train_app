@@ -14,12 +14,30 @@ class StationListPage extends StatelessWidget{
     body: ListView.builder(
       itemCount: stations.length,
       itemBuilder: (context,index){
-        return ListTile(
-          title: Text(stations[index]),
+        return GestureDetector(
           onTap: () {
-            print('${stations[index]} 선택됨');
-          },
-        );
+              print('${stations[index]} 선택됨');
+              Navigator.pop(context,stations[index]); //이전 페이지로 인덱스값 전달
+            },
+          child: Container(
+            alignment: Alignment.centerLeft,
+            height: 50,
+            decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: Colors.grey[300]!,
+              ),
+            ),
+            ),
+            child: ListTile(
+              title: Text(stations[index],
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),),
+            ),
+          ),
+          );
       }),
     
    );
