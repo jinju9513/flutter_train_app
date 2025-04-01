@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_train_app/pages/seat/widgets/seat_bottom.dart';
+import 'package:flutter_train_app/pages/seat/widgets/seat_select_box.dart';
 
-class SeatPage extends StatelessWidget {
+class SeatPage extends StatefulWidget {
   final String Departure;
   final String Arrival;
 
   const SeatPage({required this.Departure, required this.Arrival});
 
+  @override
+  State<SeatPage> createState() => _SeatPageState();
+}
+
+class _SeatPageState extends State<SeatPage> {
+  int? selectedSeatIndex; // 몇번 좌석이 선택됬는지 저장
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +26,7 @@ class SeatPage extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    Departure,
+                    widget.Departure,
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -32,7 +40,7 @@ class SeatPage extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    Arrival,
+                    widget.Arrival,
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -68,9 +76,23 @@ class SeatPage extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 4),
-              Text('선택됨'),
+              Text('선택안됨'),
             ],
           ),
+          SizedBox(height: 20),
+          Expanded(
+            child: SingleChildScrollView(
+              child: SeatSelectBox(
+                selectedIndex: selectedSeatIndex,
+                onSeatSelected: (index) {
+                  setState(() {
+                    selectedSeatIndex = index;
+                  });
+                },
+              ),
+            ),
+          ),
+          SeatBottom(selectedSeatIndex: selectedSeatIndex)
         ],
       ),
     );
