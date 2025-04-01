@@ -40,7 +40,6 @@ class SeatBottom extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context); //다이얼로그 닫기
                           Navigator.pop(context); //SeatPage 닫기
-                          Navigator.pop(context); //HomePage 돌아가기
                         },
                       ),
                     ],
