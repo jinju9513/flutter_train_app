@@ -37,7 +37,7 @@ class _SelectBoxState extends State<SelectBox> {
         GestureDetector(
           onTap: ()async{
             final result = await Navigator.push(context, 
-                        MaterialPageRoute(builder: (context) =>StationListPage(title : '출발역')));
+                        MaterialPageRoute(builder: (context) =>StationListPage(title : '출발역', excludeStation: selectedArrival,)));
 
                         if(result !=null){
                           setState(() {
@@ -65,7 +65,7 @@ class _SelectBoxState extends State<SelectBox> {
         GestureDetector(
            onTap: ()async{
             final result = await Navigator.push(context, 
-                        MaterialPageRoute(builder: (context) =>StationListPage(title : '도착역')));
+                        MaterialPageRoute(builder: (context) =>StationListPage(title : '도착역',excludeStation: selectedDeparture,)));
 
                         if(result !=null){
                           setState(() {
