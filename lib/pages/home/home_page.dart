@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_train_app/pages/home/widgets/select_box.dart';
 import 'package:flutter_train_app/pages/seat/seat_page.dart';
-import 'package:flutter_train_app/pages/station/station_list_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -27,7 +25,7 @@ class _HomePageState extends State<HomePage> {
         ), // AppBarTheme에 스타일 위임
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20), // 디자인 명세에 맞게 padding 20
+        padding: const EdgeInsets.all(20), 
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
