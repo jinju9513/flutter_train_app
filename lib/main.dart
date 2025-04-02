@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaterialApp(
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       home: HomePage(),
       debugShowCheckedModeBanner: false, // 선택사항: 상단 debug 배너 제거
       theme: AppTheme.lightTheme,
