@@ -17,25 +17,90 @@ class SeatSelectBox extends StatefulWidget {
 class _SeatSelectBoxState extends State<SeatSelectBox> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       children: [
         // A B     C D
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text("A",style: TextStyle(fontSize: 18)), SizedBox(width: 40),
-              Text("B",style: TextStyle(fontSize: 18)), SizedBox(width: 60), // 간격
-              Text("C",style: TextStyle(fontSize: 18)), SizedBox(width: 40),
-              Text("D",style: TextStyle(fontSize: 18)),
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4),
+              child: SizedBox(
+                width: 50,
+                height: 50,
+                child: Center(
+                  child: Text(
+                    "A",
+                    style: TextStyle(
+                      color: theme.textTheme.bodyLarge?.color,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4),
+              child: SizedBox(
+                width: 50,
+                height: 50,
+                child: Center(
+                  child: Text(
+                    "B",
+                    style: TextStyle(
+                      color: theme.textTheme.bodyLarge?.color,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4),
+              child: SizedBox(width: 50),
+            ), // 가운데 번호 간격용
+
+            SizedBox(
+              width: 50,
+              height: 50,
+              child: Center(
+                child: Text(
+                  "C",
+                  style: TextStyle(
+                    color: theme.textTheme.bodyLarge?.color,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4),
+              child: SizedBox(
+                width: 50,
+                height: 50,
+                child: Center(
+                  child: Text(
+                    "D",
+                    style: TextStyle(
+                      color: theme.textTheme.bodyLarge?.color,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
+
         Column(
           children: List.generate(20, (row) {
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6),
+              padding: const EdgeInsets.symmetric(vertical: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -47,7 +112,7 @@ class _SeatSelectBoxState extends State<SeatSelectBox> {
 
                   // 건중에 수정 작업 (row+1)
                   Container(
-                    width: 30,
+                    width: 50,
                     alignment: Alignment.center,
                     child: Text('${row + 1}'),
                   ),
@@ -72,11 +137,16 @@ class _SeatSelectBoxState extends State<SeatSelectBox> {
     return GestureDetector(
       onTap: () => widget.onSeatSelected(index),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 6),
-        width: 40,
-        height: 40,
+        margin: EdgeInsets.symmetric(horizontal: 4),
+        width: 50,
+        height: 50,
         decoration: BoxDecoration(
-          color: isSelected ? Colors.purple : Colors.grey[300],
+          color:
+              isSelected
+                  ? Colors.purple
+                  : Theme.of(context).brightness == Brightness.dark
+                  ? Colors.grey[700]
+                  : Colors.grey[300],
           borderRadius: BorderRadius.circular(8),
         ),
       ),

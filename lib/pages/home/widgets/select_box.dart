@@ -11,6 +11,7 @@ class SelectBox extends StatefulWidget {
     required this.onDepartureSelected,
     required this.onArrivalSelected,
   }) : super(key: key);
+
   @override
   State<SelectBox> createState() => _SelectBoxState();
 }
@@ -18,74 +19,98 @@ class SelectBox extends StatefulWidget {
 class _SelectBoxState extends State<SelectBox> {
   String? selectedDeparture;
   String? selectedArrival;
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
       height: 200,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color:
+            Theme.of(context).brightness == Brightness.dark
+                ? Colors.grey[800]
+                : Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
-     child:  stationSelect(context),
+      child: stationSelect(context),
     );
   }
 
   Widget stationSelect(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         GestureDetector(
-          onTap: ()async{
-            final result = await Navigator.push(context, 
-                        MaterialPageRoute(builder: (context) =>StationListPage(title : '출발역', excludeStation: selectedArrival,)));
+          onTap: () async {
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder:
+                    (context) => StationListPage(
+                      title: '출발역',
+                      excludeStation: selectedArrival,
+                    ),
+              ),
+            );
 
-                        if(result !=null){
-                          setState(() {
-                            selectedDeparture = result; // 선택한 출발역 저장
-                          });
-                          widget.onDepartureSelected(result);
-                        }
+            if (result != null) {
+              setState(() {
+                selectedDeparture = result;
+              });
+              widget.onDepartureSelected(result);
+            }
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text('출발역', style: theme.textTheme.bodyMedium),
               Text(
-                '출발역',
+                selectedDeparture ?? '선택',
                 style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 40,
+                  color: theme.textTheme.bodyLarge?.color,
+                  fontWeight: FontWeight.normal,
                 ),
               ),
-              Text(selectedDeparture ?? '선택', style: TextStyle(fontSize: 40)), //값이 null이면 선택 아니면 선택한 역 보여주기
             ],
           ),
         ),
-        Container(color: Colors.grey[400], width: 2, height: 50),
+        Container(color: theme.dividerColor, width: 2, height: 50),
         GestureDetector(
-           onTap: ()async{
-            final result = await Navigator.push(context, 
-                        MaterialPageRoute(builder: (context) =>StationListPage(title : '도착역',excludeStation: selectedDeparture,)));
+          onTap: () async {
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder:
+                    (context) => StationListPage(
+                      title: '도착역',
+                      excludeStation: selectedDeparture,
+                    ),
+              ),
+            );
 
-                        if(result !=null){
-                          setState(() {
-                            selectedArrival = result; // 선택한 도착역 저장
-                          });
-                          widget.onArrivalSelected(result);
-                        }
+            if (result != null) {
+              setState(() {
+                selectedArrival = result;
+              });
+              widget.onArrivalSelected(result);
+            }
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text('도착역', style: theme.textTheme.bodyMedium),
               Text(
-                '도착역',
+                selectedArrival ?? '선택',
                 style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 40,
+                  color: theme.textTheme.bodyLarge?.color,
+                  fontWeight: FontWeight.normal,
                 ),
               ),
-              Text(selectedArrival ?? '선택', style: TextStyle(fontSize: 40)), //값이 null이면 선택 아니면 선택한 역 보여주기
             ],
           ),
         ),

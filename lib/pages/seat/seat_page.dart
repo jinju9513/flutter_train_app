@@ -13,87 +13,106 @@ class SeatPage extends StatefulWidget {
 }
 
 class _SeatPageState extends State<SeatPage> {
-  int? selectedSeatIndex; // 몇번 좌석이 선택됬는지 저장
+  int? selectedSeatIndex;
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      appBar: AppBar(title: Text('좌석 선택')),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    widget.Departure,
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.purple,
+      appBar: AppBar(title: const Text('좌석 선택',
+      style: TextStyle(
+      fontWeight: FontWeight.normal,
+      ),
+      )),
+      body: Container(
+        decoration: BoxDecoration(
+          color:
+              theme.brightness == Brightness.light
+                  ? Colors.white
+                  : null, // 다크모드는 건드리지 않기
+          borderRadius: BorderRadius.circular(20), 
+        ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      widget.Departure,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        color: theme.primaryColor,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Icon(Icons.arrow_circle_right_outlined, size: 30),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    widget.Arrival,
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.purple,
+                const Icon(Icons.arrow_circle_right_outlined, size: 30),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      widget.Arrival,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        color: theme.primaryColor,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: 24,
-                height: 24,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.purple,
+              ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: theme.primaryColor,
+                  ),
                 ),
-              ),
-              SizedBox(width: 4),
-              Text('선택됨'),
-              SizedBox(width: 20),
-              Container(
-                width: 24,
-                height: 24,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.grey[300]!,
+                const SizedBox(width: 4),
+                Text('선택됨', style: 
+                TextStyle(
+                color: theme.textTheme.bodyLarge?.color, // 부드러운 회색
+                        fontWeight: FontWeight.normal,),
                 ),
-              ),
-              SizedBox(width: 4),
-              Text('선택안됨'),
-            ],
-          ),
-          SizedBox(height: 20),
-          Expanded(
-            child: SingleChildScrollView(
-              child: SeatSelectBox(
-                selectedIndex: selectedSeatIndex,
-                onSeatSelected: (index) {
-                  setState(() {
-                    selectedSeatIndex = index;
-                  });
-                },
+                const SizedBox(width: 20),
+                Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: theme.dividerColor,
+                  ),
+                ),
+                const SizedBox(width: 4),
+                Text('선택안됨', style: TextStyle(
+                  color: theme.textTheme.bodyLarge?.color, // 부드러운 회색
+                        fontWeight: FontWeight.normal,
+                )),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: SingleChildScrollView(
+                child: SeatSelectBox(
+                  selectedIndex: selectedSeatIndex,
+                  onSeatSelected: (index) {
+                    setState(() {
+                      selectedSeatIndex = index;
+                    });
+                  },
+                ),
               ),
             ),
-          ),
-          SeatBottom(selectedSeatIndex: selectedSeatIndex)
-        ],
+            SeatBottom(selectedSeatIndex: selectedSeatIndex),
+          ],
+        ),
       ),
     );
   }

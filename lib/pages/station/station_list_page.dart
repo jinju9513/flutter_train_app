@@ -21,35 +21,48 @@ class StationListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     final List<String> filteredStations =
         excludeStation == null
             ? stations
             : stations.where((station) => station != excludeStation).toList();
+
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: ListView.builder(
-        itemCount: filteredStations.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              print('${filteredStations[index]} 선택됨');
-              Navigator.pop(context, filteredStations[index]); //이전 페이지로 인덱스값 전달
-            },
-            child: Container(
-              alignment: Alignment.centerLeft,
-              height: 50,
-              decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.grey[300]!)),
-              ),
-              child: ListTile(
-                title: Text(
-                  filteredStations[index],
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      appBar: AppBar(
+        title: Text(title, style: TextStyle(fontWeight: FontWeight.normal)),
+      ),
+      body: Container(
+         decoration: BoxDecoration(
+          color:
+              theme.brightness == Brightness.light
+                  ? Colors.white
+                  : null, // 다크모드는 건드리지 않기
+          borderRadius: BorderRadius.circular(20), 
+        ),
+        child: ListView.builder(
+          itemCount: filteredStations.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                Navigator.pop(context, filteredStations[index]);
+              },
+              child: Container(
+                alignment: Alignment.centerLeft,
+                height: 50,
+                decoration: BoxDecoration(
+                  border: Border(bottom: BorderSide(color: theme.dividerColor)),
+                ),
+                child: ListTile(
+                  title: Text(
+                    filteredStations[index],
+                    style: theme.textTheme.bodyLarge,
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

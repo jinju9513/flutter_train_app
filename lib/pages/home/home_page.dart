@@ -13,66 +13,59 @@ class _HomePageState extends State<HomePage> {
   String? selectedDeparture;
   String? selectedArrival;
 
-  bool get isButtonEnabled => //get 계산된값을 변수처럼 쓸 수 있게해주는 함수
+  bool get isButtonEnabled =>
       selectedDeparture != null && selectedArrival != null;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('기차 예매')),
-      body: Container(
-        color: Colors.grey[200],
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SelectBox(
-                  onDepartureSelected: (value) {
-                    setState(() {
-                      selectedDeparture = value;
-                    });
-                  },
-                  onArrivalSelected: (value) {
-                    setState(() {
-                      selectedArrival = value;
-                    });
-                  },
-                ),
-                  //여기에 넣으세요!!!!!!!!!!!!
-                  SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                     onPressed: isButtonEnabled
-                        ? () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => 
-                              SeatPage(
-                              Departure: selectedDeparture!, // ! null아님 강제 선언
-                              Arrival: selectedArrival!,)),
-                            );
-                          }//삼항연산자를 사용하여 true면 페이지 이동 아니면 null 버튼 비활성화
-                        : null, //ElevatedButton의 onPressed를 null로 주면 버튼이 비활성화 상태로 바뀜 (회색 처리 + 클릭 불가능)
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.purple,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        textStyle: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      child: Text('좌석선택'),
-                    ),
-                  ),
-                ],
+      appBar: AppBar(
+        title: const Text('기차 예매',
+        style: TextStyle(
+          fontWeight: FontWeight.normal,
+        ),
+        ), // AppBarTheme에 스타일 위임
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20), // 디자인 명세에 맞게 padding 20
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SelectBox(
+                onDepartureSelected: (value) {
+                  setState(() {
+                    selectedDeparture = value;
+                  });
+                },
+                onArrivalSelected: (value) {
+                  setState(() {
+                    selectedArrival = value;
+                  });
+                },
               ),
-            
+              const SizedBox(height: 20),
+              SizedBox(
+                height: 55,
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: isButtonEnabled
+                      ? () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SeatPage(
+                                Departure: selectedDeparture!,
+                                Arrival: selectedArrival!,
+                              ),
+                            ),
+                          );
+                        }
+                      : null,
+                  child: const Text('좌석선택'), // 버튼 스타일도 테마에 맞춰 자동적용
+                ),
+              ),
+            ],
           ),
         ),
       ),
