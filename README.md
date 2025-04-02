@@ -30,7 +30,7 @@ lib/
 │   │       └── seat_bottom.dart        # 예매하기 버튼
 │   └── station/
 │       └── station_list_page.dart      # 역 리스트 선택 페이지
-<code>
+</code>
 </pre>
 
 
